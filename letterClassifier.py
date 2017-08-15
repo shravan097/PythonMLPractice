@@ -26,6 +26,7 @@ def main():
 
 	sgdClf = SGDClassifier()
 	sgdClf.fit(X_train,y_train_5)
+	#This is for checking later on. I know that X[36015] is letter 5 by the image.
 	number_5 = X[36015]
 	plot_digit(number_5)
 	plt.show()
