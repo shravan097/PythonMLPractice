@@ -30,7 +30,7 @@ def main():
 	plot_digit(number_5)
 	plt.show()
 	success = 0
-	for trails in range(0,500):
+	for trials in range(0,500):
 		if sgdClf.predict([number_5])==True:
 			success+=1 
 	print("Probability: %f" %(success/500))
