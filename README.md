@@ -1,2 +1,2 @@
 # PythonMLPractice
-Currently Learning Machine Learning Algorithms so I am trying to upload what I've learnt and explain it.
+Currently Learning Machine Learning Algorithms. I will try to upload my full understanding through Jupyter Notebooks as well.
