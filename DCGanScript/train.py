@@ -16,6 +16,7 @@ import numpy as np
 from inputConstants import *
 from discriminator import Discriminator
 from generator import Generator
+from torch.utils.data.sampler import SubsetRandomSampler
 
 # Set random seem for reproducibility
 manualSeed = 999
