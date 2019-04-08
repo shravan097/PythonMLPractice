@@ -61,6 +61,10 @@ torch.manual_seed(manualSeed)
 
 # We can use an image folder dataset the way we have it setup.
 # Create the dataset
+# We can use an image folder dataset the way we have it setup.
+
+
+# Create the dataset
 dataset = dset.ImageFolder(root=dataroot,
                            transform=transforms.Compose([
 #                                transforms.functional.to_grayscale,
@@ -69,12 +73,34 @@ dataset = dset.ImageFolder(root=dataroot,
                                transforms.ToTensor(),
                                transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5)),
                            ]))
+
+
+# Creating data indices for training and validation splits:
+dataset_size = len(dataset)
+indices = list(range(dataset_size))
+split = int(np.floor(0.01 * dataset_size))
+if shuffle_dataset :
+    np.random.seed(random_seed)
+    np.random.shuffle(indices)
+train_indices, test_indices = indices[split:], indices[:split]
+
+# Creating PT data samplers and loaders:
+train_sampler = SubsetRandomSampler(train_indices)
+test_sampler = SubsetRandomSampler(test_indices)
+
+
 # Create the dataloader
 dataloader = torch.utils.data.DataLoader(dataset, batch_size=batch_size,
-                                         shuffle=True, num_workers=workers)
+                                         shuffle=True, num_workers=workers,sampler=train_sampler)
+
+dataloaderTest = torch.utils.data.DataLoader(dataset, batch_size=batch_size,
+                                         shuffle=True, num_workers=workers,sampler=test_sampler)
 
 # Decide which device we want to run on
 device = torch.device("cuda:0" if (torch.cuda.is_available() and ngpu > 0) else "cpu")
+
+
+
 
 # Plot some training images
 real_batch = next(iter(dataloader))
@@ -217,7 +243,7 @@ iters = 0
 
 print("Starting Training Loop...")
 # For each epoch
-for epoch in range(num_epochs):
+for epoch in range(1):
     # For each batch in the dataloader
     for i, data in enumerate(dataloader, 0):
         
