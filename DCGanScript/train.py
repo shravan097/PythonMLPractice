@@ -16,7 +16,7 @@ import numpy as np
 from inputConstants import *
 from discriminator import Discriminator
 from generator import Generator
-from torch.utils.data.sampler import SubsetRandomSampler
+from torch.utils.data.sampler import SequentialSampler
 
 # Set random seem for reproducibility
 manualSeed = 999
@@ -80,22 +80,19 @@ dataset = dset.ImageFolder(root=dataroot,
 dataset_size = len(dataset)
 indices = list(range(dataset_size))
 split = int(np.floor(0.01 * dataset_size))
-if shuffle_dataset :
-    np.random.seed(random_seed)
-    np.random.shuffle(indices)
 train_indices, test_indices = indices[split:], indices[:split]
 
 # Creating PT data samplers and loaders:
-train_sampler = SubsetRandomSampler(train_indices)
-test_sampler = SubsetRandomSampler(test_indices)
+train_sampler = SequentialSampler(train_indices)
+test_sampler = SequentialSampler(test_indices)
 
 
 # Create the dataloader
 dataloader = torch.utils.data.DataLoader(dataset, batch_size=batch_size,
-                                         shuffle=True, num_workers=workers,sampler=train_sampler)
+                                         shuffle=False, num_workers=workers,sampler=train_sampler)
 
 dataloaderTest = torch.utils.data.DataLoader(dataset, batch_size=batch_size,
-                                         shuffle=True, num_workers=workers,sampler=test_sampler)
+                                         shuffle=False, num_workers=workers,sampler=test_sampler)
 
 # Decide which device we want to run on
 device = torch.device("cuda:0" if (torch.cuda.is_available() and ngpu > 0) else "cpu")
