@@ -36,7 +36,7 @@
 # 
 
 # Root directory for dataset
-dataroot = "../GANsPractice/celeba"
+dataroot = "./celeba"
 
 # Number of workers for dataloader
 workers = 2

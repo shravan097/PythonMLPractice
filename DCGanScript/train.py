@@ -241,7 +241,7 @@ iters = 0
 
 print("Starting Training Loop...")
 # For each epoch
-for epoch in range(1):
+for epoch in range(num_epochs):
     # For each batch in the dataloader
     for i, data in enumerate(dataloader, 0):
         
